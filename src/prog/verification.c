@@ -24,6 +24,14 @@ void vec_check()
 
     vec_free_lazy(v);
     memory_check_0_alloc();
+
+    vec* a = vec_empty(int);
+    repeat(i, 30)
+    {
+        vec_push(a, int, i);
+    }
+    vec_free_lazy(a);
+    memory_check_0_alloc();
 }
 
 void verification()

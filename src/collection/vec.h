@@ -32,7 +32,7 @@ typedef struct
 {\
     vec* __v = (v);\
     vec_resize_twice_if_needed(__v, sizeof(type));\
-    ((type*)__v->values)[__v->length++] = (element);\
+    ((type*)__v->values)[__v->length++] = (type)(element);\
 }
 
 #define vec_remove_end(v, type)\
@@ -114,24 +114,25 @@ typedef struct
     }\
 }
 
-#define vec_fprintf_metadata(f,v)\
+#define vec_fprintf_metadata(f,v,type)\
 {\
     vec* _v = (v);\
     if(_v != null)\
     {\
-        fprintf(f, #v" : vec of %i elements of %i bytes. (max capacity : %i) : ", _v->length, _v->sizeof_value, _v->max_capacity);\
+        fprintf(f, #v" : vec<%s> of %i elements of %i bytes. (max capacity : %i) : ", to_string(type), _v->length, sizeof(type), _v->max_capacity);\
     }else\
     {\
         fprintf(f, #v" : vec null");\
     }\
 }
 
-#define vec_printf_metadata(f,v) vec_fprintf_metadata(stdout, v)
+#define vec_printf_metadata(f,v,type) vec_fprintf_metadata(stdout, v, type)
 
 #define vec_fprintf(f, v, type, format)\
 {\
     vec* _v = (v);\
-    vec_fprintf_metadata(f, v);\
+    vec_fprintf_metadata(f, v, type);\
+    fprintf(f, "\n");\
     if(_v != null)\
     {\
         repeat(_i, _v->length)\
@@ -142,10 +143,12 @@ typedef struct
     fprintf(f, "\n");\
 }
 
+
+
 #define vec_fprintf_struct(f, v, type, fn_ptr_printing)\
 {\
     vec* _v = (v);\
-    vec_fprintf_metadata(f, v);\
+    vec_fprintf_metadata(f, v, type);\
     if(_v != null)\
     {\
         repeat(_i, _v->length)\

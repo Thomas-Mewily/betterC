@@ -32,5 +32,6 @@
 
 #define print_size(type) { printf("%ssizeof%s(%-6s) = %zu\n", COLOR_FOREGROUND_MAGENTA, COLOR_FOREGROUND_WHITE, #type, sizeof(type)); }
 #define new_line() { printf("\n"); }
+void printf_title(char* title);
 
 #endif

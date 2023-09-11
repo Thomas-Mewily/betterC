@@ -45,6 +45,8 @@ void* memory_realloc(void* ptr, size_t nb_byte)
 
 void _memory_printf(nuint less, bool is_final)
 {
+    unused(less);
+    unused(is_final);
     #ifdef TRACK_MEMORY
     if(is_final){less = 0;}
     printf("%smemory %s: %s%s%i malloc actif%s\n", COLOR_FOREGROUND_GREEN, COLOR_FOREGROUND_WHITE, (!is_final || memory_nb_malloc_actif == 0) ? COLOR_FOREGROUND_WHITE : COLOR_FOREGROUND_RED, less == 0 ? "": (COLOR_FOREGROUND_YELLOW "~ " COLOR_FOREGROUND_WHITE), (int)(memory_nb_malloc_actif-less), COLOR_RESET);
